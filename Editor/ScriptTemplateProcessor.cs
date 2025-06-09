@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using UnityEditor;
 
 namespace Moyba.Contracts.Editor
 {
     public class ScriptTemplateProcessor : AssetModificationProcessor
     {
+        private const string _FriendlyNameParameter = "#FRIENDLYNAME#";
         private const string _NamespaceParameter = "#NAMESPACE#";
 
         private const string _ContractsDirectoryName = "Contracts";
@@ -16,6 +18,8 @@ namespace Moyba.Contracts.Editor
         private const string _ScriptsDirectoryName = "Scripts";
 
         private const string _ScriptMetadataFileExtension = ".cs.meta";
+
+        private static readonly Regex _SpacingRegex = new Regex(@"(?<=[A-Za-z])(?=[A-Z][a-z])|(?<=[a-z])(?=[A-Z])", RegexOptions.Compiled);
 
         public static void OnWillCreateAsset(string assetPath)
         {
@@ -32,6 +36,7 @@ namespace Moyba.Contracts.Editor
             // create a lookup for template values
             var templateParameters = new Dictionary<string, string>
             {
+                { _FriendlyNameParameter, _SpacingRegex.Replace(scriptName, " ") },
                 { _NamespaceParameter, _GenerateNamespaceValue(featureHierarchy, isEditorScript) },
             };
 
