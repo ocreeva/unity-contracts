@@ -1,13 +1,15 @@
 {
     "name": "Moyba.Contracts.Editor",
     "rootNamespace": "Moyba.Contracts.Editor",
-    "references": [],
+    "references": [
+        "GUID:800f99f6e3fd7664cabe8dd5ff21f7b1"
+    ],
     "includePlatforms": [
         "Editor"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
+    "overrideReferences": true,
     "precompiledReferences": [],
     "autoReferenced": false,
     "defineConstraints": [],
