@@ -12,7 +12,7 @@ namespace Moyba.Contracts
         ///   [SerializeField, Require(typeof(IFeatureManager))] private Object _Feature;
         ///   public static IFeatureManager Feature { get; private set; }
         ///
-        /// This method generates an action which finds all such property/field pairs, and assigns the field to the
+        /// This method locates all such property/field pairs, and generates an action which assigns the field to the
         /// property after casting.
         /// </remarks>
         private static Action<Omnibus> _Reflection_AssignManagerProperties()

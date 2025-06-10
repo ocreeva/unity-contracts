@@ -9,6 +9,7 @@ namespace Moyba.Contracts.Editor
 {
     public class ScriptTemplateProcessor : AssetModificationProcessor
     {
+        private const string _CollectionParameter = "#COLLECTION#";
         private const string _FeatureParameter = "#FEATURE#";
         private const string _FriendlyNameParameter = "#FRIENDLYNAME#";
         private const string _NamespaceParameter = "#NAMESPACE#";
@@ -21,6 +22,7 @@ namespace Moyba.Contracts.Editor
         private const string _ScriptMetadataFileExtension = ".cs.meta";
 
         private static readonly Regex _SpacingRegex = new Regex(@"(?<=[A-Za-z])(?=[A-Z][a-z])|(?<=[a-z])(?=[A-Z])", RegexOptions.Compiled);
+        private static readonly char[] _Vowels = new[] { 'a', 'e', 'i', 'o', 'u' };
 
         public static void OnWillCreateAsset(string assetPath)
         {
@@ -38,6 +40,7 @@ namespace Moyba.Contracts.Editor
             // create a lookup for template values
             var templateParameters = new Dictionary<string, string>
             {
+                { _CollectionParameter, _Pluralize(scriptName) },
                 { _FeatureParameter, featureName },
                 { _FriendlyNameParameter, _SpacingRegex.Replace(scriptName, " ") },
                 { _NamespaceParameter, _GenerateNamespaceValue(featureHierarchy, isEditorScript) },
@@ -98,6 +101,15 @@ namespace Moyba.Contracts.Editor
             directorySegments = directorySegments.Where((s, i) => i != 1 || !s.Equals(_ContractsDirectoryName));
 
             return directorySegments.ToArray();
+        }
+
+        private static string _Pluralize(string name)
+        {
+            if (name == null) return null;
+
+            if (name.EndsWith('y') && name.LastIndexOfAny(_Vowels) < name.Length - 2) return $"{name[..^1]}ies";
+
+            return $"{name}s";
         }
     }
 }

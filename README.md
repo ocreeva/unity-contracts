@@ -7,6 +7,11 @@ The Omnibus is the singleton contract for a game. It provides access to all Mana
 ### Manager
 A Manager is the top-level contract for a feature, which persists across the lifespan of a game. They hold state and data which persists across scenes, and provide the entry point for cross-feature calls.
 
+### Entity / ExCollection
+An Entity is the contract for any multi-instanced game object. They hold state and data relevant to the game object, and provide the entry point for cross-feature calls. Every Entity is expected to belong to at least one Manager collection.
+
+An ExCollection is a keyed collection of Entities. ExCollections are typically children of the feature Manager, and provide cross-feature query capability for Entities.
+
 ## Dependencies
 [unity-scripttemplates](https://github.com/ocreeva/unity-scripttemplates):
 The script template processor only provides value when processing script templates utilizing its tokens.
