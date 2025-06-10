@@ -7,6 +7,8 @@ namespace Moyba.Contracts.Editor
     {
         private const string _DefaultRootNamespace = "Moyba";
 
+        public static string ContractsNamespace => "Moyba.Contracts";
+
         public static string GetRootNamespace()
         {
             // try to get the root namespace from the Editor settings
