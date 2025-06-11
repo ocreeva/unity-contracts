@@ -9,6 +9,7 @@ namespace Moyba.Contracts.Editor
 {
     public class ScriptTemplateProcessor : AssetModificationProcessor
     {
+        private const string _ApiParameter = "#API#";
         private const string _CollectionParameter = "#COLLECTION#";
         private const string _EntityParameter = "#ENTITY#";
         private const string _FeatureParameter = "#FEATURE#";
@@ -42,6 +43,7 @@ namespace Moyba.Contracts.Editor
             // create a lookup for template values
             var templateParameters = new Dictionary<string, string>
             {
+                { _ApiParameter, _Strip(scriptName, featureName, entityName) },
                 { _CollectionParameter, _Pluralize(scriptName) },
                 { _EntityParameter, entityName },
                 { _FeatureParameter, featureName },
@@ -113,6 +115,18 @@ namespace Moyba.Contracts.Editor
             if (name.EndsWith('y') && name.LastIndexOfAny(_Vowels) < name.Length - 2) return $"{name[..^1]}ies";
 
             return $"{name}s";
+        }
+
+        private static string _Strip(string name, params string[] substrings)
+        {
+            foreach (var substring in substrings)
+            {
+                if (String.IsNullOrEmpty(substring)) continue;
+
+                name = name.Replace(substring, String.Empty);
+            }
+
+            return name;
         }
     }
 }

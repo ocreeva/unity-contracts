@@ -14,7 +14,10 @@ An Entity is the contract for any multi-instanced game object. They hold state a
 An ExCollection is a keyed collection of Entities. ExCollections are typically children of the feature Manager, and provide cross-feature query capability for Entities.
 
 ### Trait
-A Trait is the contract for any logic or functionality which does not provide any entry points to external features. Manager Traits provider feature-wide behavior, while Entity Traits provide logic scoped to a game object.
+A Trait is the contract for any logic or functionality which does not provide any entry points to external features. Manager Traits provide feature-wide behavior, while Entity Traits provide behavior scoped to a game object.
+
+### API
+An API is the contract for a Trait which also provides an entry point to external features. APIs are exposed on their parent Manager or Entity as an interface for the purpose of cross-feature calls.
 
 ## Dependencies
 [unity-scripttemplates](https://github.com/ocreeva/unity-scripttemplates):
