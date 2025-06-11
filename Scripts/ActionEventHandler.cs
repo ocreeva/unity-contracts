@@ -1,5 +1,6 @@
 namespace Moyba.Contracts
 {
-    public delegate void ActionEventHandler<in TEntity>(TEntity entity)
-        where TEntity : class;
+    public delegate void ActionEventHandler();
+    public delegate void ActionEventHandler<in IEntity>(IEntity entity)
+        where IEntity : class;
 }

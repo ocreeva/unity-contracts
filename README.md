@@ -10,14 +10,16 @@ A Manager is the top-level contract for a feature, which persists across the lif
 ### Entity
 An Entity is the contract for any multi-instanced game object. They hold state and data relevant to the game object, and provide the entry point for cross-feature calls. Every Entity is expected to belong to at least one Manager collection.
 
-### ExCollection
-An ExCollection is a keyed collection of Entities. ExCollections are typically children of the feature Manager, and provide cross-feature query capability for Entities.
-
 ### Trait
 A Trait is the contract for any logic or functionality which does not provide any entry points to external features. Manager Traits provide feature-wide behavior, while Entity Traits provide behavior scoped to a game object.
 
 ### API
 An API is the contract for a Trait which also provides an entry point to external features. APIs are exposed on their parent Manager or Entity as an interface for the purpose of cross-feature calls.
+
+### Ex Classes
+The Ex contracts provide simple data types with built-in events occuring on state change. This allows game logic to be event driven rather than polling each frame, providing a performance benefit when triggering events are relatively sparse.
+
+The ExValue contract provides events for a generically-typed value. The ExBool contract provides additional events for a boolean value. The ExCollection contract provides a collection of Entity contracts.
 
 ## Dependencies
 [unity-scripttemplates](https://github.com/ocreeva/unity-scripttemplates):
