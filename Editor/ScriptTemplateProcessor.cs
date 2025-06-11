@@ -10,6 +10,7 @@ namespace Moyba.Contracts.Editor
     public class ScriptTemplateProcessor : AssetModificationProcessor
     {
         private const string _CollectionParameter = "#COLLECTION#";
+        private const string _EntityParameter = "#ENTITY#";
         private const string _FeatureParameter = "#FEATURE#";
         private const string _FriendlyNameParameter = "#FRIENDLYNAME#";
         private const string _NamespaceParameter = "#NAMESPACE#";
@@ -35,12 +36,14 @@ namespace Moyba.Contracts.Editor
             var directorySegments = Path.GetDirectoryName(scriptPath).Split(Path.DirectorySeparatorChar);
             var featureHierarchy = _GetFeatureHierarchy(directorySegments);
             var featureName = featureHierarchy.FirstOrDefault();
+            var entityName = featureHierarchy.LastOrDefault();
             var isEditorScript = directorySegments.Any(s => s.Equals(_EditorDirectoryName));
 
             // create a lookup for template values
             var templateParameters = new Dictionary<string, string>
             {
                 { _CollectionParameter, _Pluralize(scriptName) },
+                { _EntityParameter, entityName },
                 { _FeatureParameter, featureName },
                 { _FriendlyNameParameter, _SpacingRegex.Replace(scriptName, " ") },
                 { _NamespaceParameter, _GenerateNamespaceValue(featureHierarchy, isEditorScript) },

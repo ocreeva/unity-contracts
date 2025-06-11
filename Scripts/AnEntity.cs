@@ -18,7 +18,7 @@ namespace Moyba.Contracts
         [NonSerialized] private readonly TEntity _this;
         [NonSerialized] private readonly Func<TManager, _ExCollection<TEntity>> _GetCollectionFromManager;
 
-        [SerializeField] private TManager _manager;
+        [SerializeField] protected internal TManager _manager;
 
         protected AnEntity(Func<TManager, _ExCollection<TEntity>> getCollectionFromManager)
         {
