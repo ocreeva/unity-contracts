@@ -1,7 +1,9 @@
 {
     "name": "Moyba.Contracts",
     "rootNamespace": "Moyba.Contracts",
-    "references": [],
+    "references": [
+        "Moyba.Core"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
