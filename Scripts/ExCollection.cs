@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Moyba.Contracts
@@ -6,10 +7,13 @@ namespace Moyba.Contracts
     /// <remarks>
     /// A partial signature to allow type scoping without knowing the full generic signature.
     /// </remarks>
-    public abstract class _ExCollection<TEntity>
+    public abstract class _ExCollection<TEntity> : IEnumerable<TEntity>
         where TEntity : _AnEntity
     {
         internal _ExCollection() { }
+
+        public abstract IEnumerator<TEntity> GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         internal abstract void Add(TEntity entity);
         internal abstract void Remove(TEntity entity);
@@ -36,6 +40,19 @@ namespace Moyba.Contracts
         public bool ContainsKey(TKey key)
         => _entities.ContainsKey(key);
 
+        public sealed override IEnumerator<TEntity> GetEnumerator()
+        => _entities.Values.GetEnumerator();
+
+        internal override void Add(TEntity entity)
+        {
+            var key = _GetKeyFromEntity(entity);
+            entity._Assert(!_entities.ContainsKey(key), $"trying to register with an existing key '{key}'.");
+
+            _entities.Add(key, entity);
+
+            this.OnAdded?.Invoke(entity);
+        }
+
         internal override void Remove(TEntity entity)
         {
             var key = _GetKeyFromEntity(entity);
@@ -46,16 +63,6 @@ namespace Moyba.Contracts
             _entities.Remove(key);
 
             this.OnRemoved?.Invoke(entity);
-        }
-
-        internal override void Add(TEntity entity)
-        {
-            var key = _GetKeyFromEntity(entity);
-            entity._Assert(!_entities.ContainsKey(key), $"trying to register with an existing key '{key}'.");
-
-            _entities.Add(key, entity);
-
-            this.OnAdded?.Invoke(entity);
         }
     }
 }
