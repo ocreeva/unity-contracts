@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Moyba.Contracts
 {
-    public partial class ExCollection<TKey, TEntity>
+    public partial class _ExCollection<TEntity>
     {
         /// <remarks>
         /// Entities are expected to define a property or field which provides their collection key, indicated by the
@@ -14,7 +14,7 @@ namespace Moyba.Contracts
         /// This method locates the entity type's field or property matching the key constraints, and generates a
         /// function to retrieve it.
         /// </remarks>
-        private static Func<TEntity, TKey> _Reflection_GetKeyFromEntity()
+        internal static Func<TEntity, TKey> _Reflection_GetKeyFromEntity<TKey>()
         {
             var entityType = typeof(TEntity);
             var entityParameter = Expression.Parameter(entityType);
