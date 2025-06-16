@@ -33,7 +33,7 @@ namespace Moyba.Contracts.Editor
             return inspectorGUI;
         }
 
-        protected VisualElement CreateHeaderGUI(string text)
+        protected static VisualElement _CreateHeaderGUI(string text)
         {
             var headerGUI = new VisualElement();
             headerGUI.AddToClassList("unity-decorator-drawers-container");
@@ -45,10 +45,7 @@ namespace Moyba.Contracts.Editor
             return headerGUI;
         }
 
-        protected PropertyField CreateSerializedPropertyGUI(string fieldName)
-        => new PropertyField(this.serializedObject.FindProperty(fieldName));
-
-        protected Slider CreateSliderGUI(
+        protected static Slider _CreateSliderGUI(
             float value,
             string fieldName,
             float start = 0,
@@ -63,7 +60,7 @@ namespace Moyba.Contracts.Editor
             return slider;
         }
 
-        protected TextField CreateTextFieldGUI(string value, string fieldName, bool isEnabled = false)
+        protected static TextField _CreateTextFieldGUI(string value, string fieldName, bool isEnabled = false)
         {
             var name = ObjectNames.NicifyVariableName(fieldName);
             var textField = new TextField(name);
@@ -73,7 +70,7 @@ namespace Moyba.Contracts.Editor
             return textField;
         }
 
-        protected Toggle CreateToggleGUI(bool value, string fieldName, bool isEnabled = false)
+        protected static Toggle _CreateToggleGUI(bool value, string fieldName, bool isEnabled = false)
         {
             var name = ObjectNames.NicifyVariableName(fieldName);
             var toggle = new Toggle(name);
