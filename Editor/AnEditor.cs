@@ -10,6 +10,26 @@ namespace Moyba.Contracts.Editor
         {
             var inspectorGUI = new VisualElement();
 
+            var serializedProperty = this.serializedObject.GetIterator();
+            if (serializedProperty.NextVisible(true))
+            {
+                do
+                {
+                    var propertyField = new PropertyField(serializedProperty.Copy())
+                    {
+                        name = $"PropertyField:{serializedProperty.propertyPath}"
+                    };
+
+                    if (serializedProperty.propertyPath.Equals("m_Script") && serializedObject.targetObject != null)
+                    {
+                        propertyField.SetEnabled(false);
+                    }
+
+                    inspectorGUI.Add(propertyField);
+                }
+                while (serializedProperty.NextVisible(false));
+            }
+
             return inspectorGUI;
         }
 
@@ -25,7 +45,7 @@ namespace Moyba.Contracts.Editor
             return headerGUI;
         }
 
-        protected PropertyField CreateSerializedProperty(string fieldName)
+        protected PropertyField CreateSerializedPropertyGUI(string fieldName)
         => new PropertyField(this.serializedObject.FindProperty(fieldName));
 
         protected Slider CreateSliderGUI(
