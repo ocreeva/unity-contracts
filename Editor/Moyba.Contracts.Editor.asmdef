@@ -2,7 +2,8 @@
     "name": "Moyba.Contracts.Editor",
     "rootNamespace": "Moyba.Contracts.Editor",
     "references": [
-        "GUID:800f99f6e3fd7664cabe8dd5ff21f7b1"
+        "Moyba.Contracts",
+        "Moyba.Core"
     ],
     "includePlatforms": [
         "Editor"
