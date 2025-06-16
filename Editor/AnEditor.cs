@@ -33,6 +33,18 @@ namespace Moyba.Contracts.Editor
             return inspectorGUI;
         }
 
+        protected static Button _CreateButtonGUI(System.Action clickEvent, string text)
+        {
+            var button = new Button(clickEvent) { text = text };
+            button.style.paddingLeft = 16;
+            button.style.paddingRight = 16;
+            button.style.paddingTop = 8;
+            button.style.paddingBottom = 8;
+            button.style.marginLeft = 4;
+            button.style.marginRight = 4;
+            return button;
+        }
+
         protected static VisualElement _CreateHeaderGUI(string text)
         {
             var headerGUI = new VisualElement();
