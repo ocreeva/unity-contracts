@@ -27,7 +27,7 @@ namespace Moyba.Contracts
 #if UNITY_EDITOR
             // try to catch issues like duplicate traits in the same scope, overwriting each other
             var current = _GetApiFromManager(_manager);
-            this._Assert(current == null, $"is replacing a non-null trait {current.GetType().Name}.");
+            this._Assert(current == null, $"is replacing a non-null trait {current?.GetType().Name}.");
 #endif
 
             _SetApiOnManager(_manager, _this);
@@ -66,7 +66,7 @@ namespace Moyba.Contracts
 #if UNITY_EDITOR
             // try to catch issues like duplicate traits in the same scope, overwriting each other
             var current = _GetApiFromEntity(_entity);
-            this._Assert(current == null, $"is replacing a non-null trait {current.GetType().Name}.");
+            this._Assert(current == null, $"is replacing a non-null trait {current?.GetType().Name}.");
 #endif
 
             _SetApiOnEntity(_entity, _this);
