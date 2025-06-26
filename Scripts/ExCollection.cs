@@ -22,6 +22,33 @@ namespace Moyba.Contracts
         internal virtual void Remove(TEntity entity) => this.OnRemoved?.Invoke(entity);
     }
 
+    public class ExCollection<TEntity> : _ExCollection<TEntity>
+        where TEntity : _AnEntity
+    {
+        [NonSerialized] private readonly HashSet<TEntity> _entities = new HashSet<TEntity>();
+
+        public override IEnumerator<TEntity> GetEnumerator()
+        => _entities.GetEnumerator();
+
+        internal override void Add(TEntity entity)
+        {
+            entity._Assert(!_entities.Contains(entity), "trying to add when already in collection.");
+
+            _entities.Add(entity);
+
+            base.Add(entity);
+        }
+
+        internal override void Remove(TEntity entity)
+        {
+            entity._Assert(_entities.Contains(entity), "trying to remove when not in collection.");
+
+            _entities.Remove(entity);
+
+            base.Remove(entity);
+        }
+    }
+
     public partial class ExCollection<TKey, TEntity> : _ExCollection<TEntity>, IExCollection<TKey, TEntity>
         where TEntity : _AnEntity
     {
