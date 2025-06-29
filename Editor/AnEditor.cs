@@ -57,6 +57,16 @@ namespace Moyba.Contracts.Editor
             return headerGUI;
         }
 
+        protected static ObjectField _CreateObjectGUI(UnityEngine.Object value, string fieldName, bool isEnabled = false)
+        {
+            var name = ObjectNames.NicifyVariableName(fieldName);
+            var objectField = new ObjectField(name);
+            objectField.SetValueWithoutNotify(value);
+            objectField.SetEnabled(isEnabled);
+            objectField.Align();
+            return objectField;
+        }
+
         protected static Slider _CreateSliderGUI(
             float value,
             string fieldName,
