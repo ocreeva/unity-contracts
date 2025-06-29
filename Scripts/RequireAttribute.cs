@@ -8,6 +8,6 @@ namespace Moyba.Contracts
         public RequireAttribute(Type type)
         => this.Type = type;
 
-        public Type Type { get; }
+        internal Type Type { get; }
     }
 }
