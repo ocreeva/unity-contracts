@@ -9,6 +9,7 @@ namespace Moyba.Contracts
         private TValue _value;
 
         public event ValueEventHandler<TValue> OnChanged;
+        public event ValueEventHandler<TValue> OnChanging;
 
         public TValue Value
         {
@@ -16,6 +17,8 @@ namespace Moyba.Contracts
             set
             {
                 if (_EqualityComparer.Equals(_value, value)) return;
+
+                this.OnChanging?.Invoke(_value);
 
                 _value = value;
 
@@ -36,6 +39,7 @@ namespace Moyba.Contracts
         public ExValue(IEntity entity) => _entity = entity;
 
         public event ValueEventHandler<IEntity, TValue> OnChanged;
+        public event ValueEventHandler<IEntity, TValue> OnChanging;
 
         public TValue Value
         {
@@ -43,6 +47,8 @@ namespace Moyba.Contracts
             set
             {
                 if (_EqualityComparer.Equals(_value, value)) return;
+
+                this.OnChanging?.Invoke(_entity, _value);
 
                 _value = value;
 

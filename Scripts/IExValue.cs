@@ -10,6 +10,11 @@ namespace Moyba.Contracts
         /// Occurs after the value changed.
         /// </summary>
         event ValueEventHandler<TValue> OnChanged;
+
+        /// <summary>
+        /// Occurs before the value changes.
+        /// </summary>
+        event ValueEventHandler<TValue> OnChanging;
     }
 
     /// <summary>
@@ -24,5 +29,10 @@ namespace Moyba.Contracts
         /// Occurs after the value changed.
         /// </summary>
         event ValueEventHandler<IEntity, TValue> OnChanged;
+
+        /// <summary>
+        /// Occurs before the value changes.
+        /// </summary>
+        event ValueEventHandler<IEntity, TValue> OnChanging;
     }
 }
