@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine.UIElements;
@@ -43,6 +44,17 @@ namespace Moyba.Contracts.Editor
             button.style.marginLeft = 4;
             button.style.marginRight = 4;
             return button;
+        }
+
+        protected static EnumField _CreateEnumGUI<TEnum>(TEnum value, string fieldName, bool isEnabled = false)
+            where TEnum : Enum
+        {
+            var name = ObjectNames.NicifyVariableName(fieldName);
+            var enumField = new EnumField(name, default(TEnum));
+            enumField.SetValueWithoutNotify(value);
+            enumField.SetEnabled(isEnabled);
+            enumField.Align();
+            return enumField;
         }
 
         protected static VisualElement _CreateHeaderGUI(string text)
